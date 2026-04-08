@@ -27,6 +27,10 @@ class MLP_Advanced(nn.Module):
         self.network = nn.Sequential(
             nn.Linear(input_dim, 64),
             nn.ReLU(),
+            nn.Dropout(0.2),
+            nn.Linear(64, 64),
+            nn.ReLU(),
+            nn.Dropout(0.2),
             nn.Linear(64, output_dim)
         )
 
@@ -47,7 +51,8 @@ def loss_Advanced(device):
     
     ### <--- START OF YOUR CODE
 
-    loss = nn.CrossEntropyLoss()
+    weights = torch.tensor([1.0, 4.0, 4.0, 1.0]).to(device)
+    loss = nn.CrossEntropyLoss(weight=weights)
 
     ### END OF YOUR CODE --->
 
